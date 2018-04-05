@@ -2,6 +2,7 @@ package com.example.baobang.gameduangua.adapter;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -53,13 +54,14 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.GalleryH
         ImageView  imgGallery;
         TextView txtGalleryName;
         TextView txtDescription;
-
+        CardView cardView;
 
         GalleryHolder(View itemView) {
             super(itemView);
             imgGallery = itemView.findViewById(R.id.imgGallery);
             txtGalleryName = itemView.findViewById(R.id.txtGalleryName);
             txtDescription = itemView.findViewById(R.id.txtDescription);
+            cardView = itemView.findViewById(R.id.container);
         }
 
         void onBindView(Gallery gallery) {
@@ -69,6 +71,22 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.GalleryH
             Glide.with(mContext)
                     .load(gallery.getPhotUrl())
                     .into(imgGallery);
+
+            cardView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(listener != null){
+                        listener.onClick(getAdapterPosition());
+                    }
+                }
+            });
         }
+    }
+    private GalleryAdapter.OnItemClickListener listener;
+    public void setOnItemClickListener(GalleryAdapter.OnItemClickListener callBack){
+        this.listener = callBack;
+    }
+    public interface OnItemClickListener{
+        void onClick(int pos);
     }
 }

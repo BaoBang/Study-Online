@@ -31,7 +31,8 @@
             android:configChanges="keyboardHidden|orientation|screenSize" />
         <activity android:name=".all_course.detail.CourseDetailActivity" />
         <activity android:name=".profile.ProfileActivity" />
-        <activity android:name=".gallery.GalleryActivity"></activity>
+        <activity android:name=".gallery.GalleryActivity" />
+        <activity android:name=".gallery.FullScreenImageSliderActivity"></activity>
     </application>
 
 </manifest>

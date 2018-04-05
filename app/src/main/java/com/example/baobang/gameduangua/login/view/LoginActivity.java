@@ -22,6 +22,8 @@ import com.example.baobang.gameduangua.model.User;
 import com.example.baobang.gameduangua.signup.SignupActivity;
 import com.google.gson.Gson;
 
+import java.util.Locale;
+
 public class LoginActivity extends AppCompatActivity implements ViewLoginListener, View.OnClickListener {
 
     private static final String TAG = "LoginActivity";
@@ -76,13 +78,12 @@ public class LoginActivity extends AppCompatActivity implements ViewLoginListene
         String json = gson.toJson(user);
 
         Toast.makeText(LoginActivity.this, "Login Thanh Cong : " + user.getName(), Toast.LENGTH_SHORT).show();
-        Log.e("USER", json);
         SharedPreferences.Editor editor = preferences.edit();
         editor.putString(Constant.USER, json);
         editor.apply();
 
         Intent mainInter = new Intent(this, ListCourseActivity.class);
-        mainInter.putExtra(Constant.USER, json);
+//        mainInter.putExtra(Constant.USER, json);
         startActivity(mainInter);
         finish();
     }

@@ -56,22 +56,23 @@ public class ProfileActivity extends AppCompatActivity {
     private void getUserFromSharedPreferences() {
         SharedPreferences preferences = getSharedPreferences(Constant.KEY_PREFERENCES, Context.MODE_PRIVATE);
         String userString = preferences.getString(Constant.USER, "");
-        if(userString.isEmpty()){
-            return;
-        }
-        try {
-            user = new User();
-            Log.e("USER", userString);
-            JSONObject jsonObject = new JSONObject(userString);
-            user.setName(jsonObject.getString("name"));
-            user.setEmail(jsonObject.getString("email"));
-            user.setBirthday(jsonObject.getString("birthday"));
-            user.setGender(jsonObject.optBoolean("gender"));
-            user.setId(jsonObject.getString("_id"));
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        Gson gson = new Gson();
+        user = gson.fromJson(userString, User.class);
+//
+//
+//        if(user == null){
+//            return;
+//        }
+//        try {
+//            JSONObject jsonObject = new JSONObject(userString);
+//            user.setName(jsonObject.getString("name"));
+//            user.setEmail(jsonObject.getString("email"));
+//            user.setBirthday(jsonObject.getString("birthday"));
+//            user.setGender(jsonObject.optBoolean("gender"));
+//            user.setId(jsonObject.getString("_id"));
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
     }
 
     private void addEvents() {
@@ -111,6 +112,14 @@ public class ProfileActivity extends AppCompatActivity {
                @Override
                public void onResponse(Call<UserResponse> call, Response<UserResponse> response) {
                     if(response.isSuccessful()){
+                        user = response.body().getUser();
+                        Gson gson = new Gson();
+                        String userJson = gson.toJson(user, User.class);
+                        SharedPreferences preferences = getSharedPreferences(Constant.KEY_PREFERENCES, Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = preferences.edit();
+                        editor.putString(Constant.USER, userJson);
+                        editor.apply();
+
                         Toast.makeText(ProfileActivity.this, "Updated", Toast.LENGTH_SHORT).show();
                         finish();
                     }else{
