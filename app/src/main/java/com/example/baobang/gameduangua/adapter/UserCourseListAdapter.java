@@ -11,7 +11,6 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.baobang.gameduangua.R;
-import com.example.baobang.gameduangua.model.Course;
 import com.example.baobang.gameduangua.model.UserCourse;
 
 import java.util.List;
@@ -65,7 +64,7 @@ public class UserCourseListAdapter extends RecyclerView.Adapter<UserCourseListAd
         }
 
         public void bindView (UserCourse course){
-            txtCourseName.setText(course.getCourse().getCourseName());
+            txtCourseName.setText(course.getCourse().getTenKH());
             txtDescription.setText(course.getCourse().getDescription());
 
             if(course.getStatus() == 0){ // Chờ kích hoạt

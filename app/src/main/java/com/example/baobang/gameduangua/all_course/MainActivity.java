@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
-import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -21,14 +20,13 @@ import com.example.baobang.gameduangua.fragment.MyCourseFragment;
 import com.example.baobang.gameduangua.gallery.GalleryActivity;
 import com.example.baobang.gameduangua.login.view.LoginActivity;
 import com.example.baobang.gameduangua.profile.ProfileActivity;
-import com.example.baobang.gameduangua.utils.BottomNavigationBehavior;
 
 
 /*
  * Created by huuduc on 08/03/2018.
  */
 
-public class ListCourseActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity {
     private static final String SELECTED_ITEM = "arg_selected_item";
     private BottomNavigationView navigation;
     private int mSelectedItem;
@@ -98,9 +96,6 @@ public class ListCourseActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
 
         switch (item.getItemId()){
-            case R.id.navigation_home:
-                goToHomeActivity();
-                break;
             case R.id.profile:
                 goToProfileActivity();
                 break;
@@ -122,12 +117,6 @@ public class ListCourseActivity extends AppCompatActivity {
 
     private void goToProfileActivity() {
         Intent  intent = new Intent(this, ProfileActivity.class);
-        startActivity(intent);
-    }
-
-    private void goToHomeActivity() {
-        Intent  intent = new Intent(this, ListCourseActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK |Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
     }
 

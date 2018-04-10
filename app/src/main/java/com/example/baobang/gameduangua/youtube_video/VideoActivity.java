@@ -7,8 +7,6 @@ import android.widget.Toast;
 
 import com.example.baobang.gameduangua.Constant;
 import com.example.baobang.gameduangua.R;
-import com.example.baobang.gameduangua.all_course.ListCourseActivity;
-import com.example.baobang.gameduangua.all_course.detail.CourseDetailActivity;
 import com.google.android.youtube.player.YouTubeBaseActivity;
 import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;

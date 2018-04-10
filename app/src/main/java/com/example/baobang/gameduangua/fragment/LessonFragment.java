@@ -32,15 +32,16 @@ public class LessonFragment extends BaseFragment {
     private LessonListAdapter listAdapter;
     private SOService mService;
     private ArrayList<Lesson> lessons;
+    private Boolean isPurchased;
 
-    public static LessonFragment newInstance(List<Lesson> lessons) {
+    public static LessonFragment newInstance(List<Lesson> lessons, Boolean isPurchased) {
         LessonFragment fragment = new LessonFragment();
 
         Bundle bundle = new Bundle();
         ArrayList<Lesson> arrayList = new ArrayList<>();
         arrayList.addAll(lessons);
         bundle.putSerializable("LIST", arrayList);
-
+        bundle.putBoolean("IsPurchased", isPurchased);
         fragment.setArguments(bundle);
 
         return fragment;
@@ -71,18 +72,21 @@ public class LessonFragment extends BaseFragment {
 
         listAdapter.setListLesson(lessons);
         rvListLesson.setAdapter(listAdapter);
+        isPurchased = getArguments().getBoolean("IsPurchased");
 
-        listAdapter.setOnItemClickListener(new LessonListAdapter.OnItemClickListener() {
-            @Override
-            public void onClick(int pos) {
-                Lesson lesson = lessons.get(pos);
-                String youtubeUrl = lesson.getLessonUrl().substring(32, 43);
-                Log.d("youtube", "onClick: " + youtubeUrl);
-                Intent intent = new Intent(getActivity(), VideoActivity.class);
-                intent.putExtra(Constant.URL, youtubeUrl);
-                startActivity(intent);
-            }
-        });
+        if (isPurchased == true){
+            listAdapter.setOnItemClickListener(new LessonListAdapter.OnItemClickListener() {
+                @Override
+                public void onClick(int pos) {
+                    Lesson lesson = lessons.get(pos);
+                    String youtubeUrl = lesson.getLessonUrl().substring(32, 43);
+                    Log.d("youtube", "onClick: " + youtubeUrl);
+                    Intent intent = new Intent(getActivity(), VideoActivity.class);
+                    intent.putExtra(Constant.URL, youtubeUrl);
+                    startActivity(intent);
+                }
+            });
+        }
     }
 
 

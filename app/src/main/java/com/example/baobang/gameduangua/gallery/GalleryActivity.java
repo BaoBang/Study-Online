@@ -1,22 +1,29 @@
 package com.example.baobang.gameduangua.gallery;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.example.baobang.gameduangua.Constant;
 import com.example.baobang.gameduangua.R;
 import com.example.baobang.gameduangua.adapter.GalleryAdapter;
+import com.example.baobang.gameduangua.all_course.MainActivity;
 import com.example.baobang.gameduangua.data.ApiUtils;
 import com.example.baobang.gameduangua.data.SOService;
+import com.example.baobang.gameduangua.login.view.LoginActivity;
 import com.example.baobang.gameduangua.model.Gallery;
 import com.example.baobang.gameduangua.model.GalleryResponse;
+import com.example.baobang.gameduangua.profile.ProfileActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,6 +69,56 @@ public class GalleryActivity extends AppCompatActivity {
         LoadData loadData = new LoadData();
         loadData.execute();
 
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()){
+            case R.id.navigation_home:
+                goToHomeActivity();
+                break;
+            case R.id.profile:
+                goToProfileActivity();
+                break;
+            case R.id.gallery:
+                goToGalleryActivity();
+                break;
+            case R.id.logout:
+                logOut();
+                break;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void goToGalleryActivity() {
+        Intent  intent = new Intent(this, GalleryActivity.class);
+        startActivity(intent);
+    }
+
+    private void goToProfileActivity() {
+        Intent  intent = new Intent(this, ProfileActivity.class);
+        startActivity(intent);
+    }
+
+    private void goToHomeActivity() {
+        Intent  intent = new Intent(this, MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK |Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+    }
+
+    private void logOut() {
+        SharedPreferences preferences = getSharedPreferences(
+                Constant.KEY_PREFERENCES,
+                Context.MODE_PRIVATE);
+
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString(Constant.USER, "");
+        editor.apply();
+        Intent  intent = new Intent(this, LoginActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK |Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
     }
 
     class LoadData extends AsyncTask<Void, List<Gallery>, Void>{

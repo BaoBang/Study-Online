@@ -3,13 +3,11 @@ package com.example.baobang.gameduangua.fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,20 +16,15 @@ import android.widget.ProgressBar;
 
 import com.example.baobang.gameduangua.Constant;
 import com.example.baobang.gameduangua.R;
-import com.example.baobang.gameduangua.adapter.CourseListAdapter;
 import com.example.baobang.gameduangua.adapter.UserCourseListAdapter;
 import com.example.baobang.gameduangua.all_course.detail.CourseDetailActivity;
 import com.example.baobang.gameduangua.data.ApiUtils;
 import com.example.baobang.gameduangua.data.SOService;
-import com.example.baobang.gameduangua.model.Course;
 import com.example.baobang.gameduangua.model.User;
 import com.example.baobang.gameduangua.model.UserCourse;
 import com.example.baobang.gameduangua.model.UserResponse;
 import com.example.baobang.gameduangua.utils.AppUtils;
 import com.google.gson.Gson;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -81,11 +74,11 @@ public class MyCourseFragment extends Fragment {
                         Constant.KEY_PREFERENCES,
                         MODE_PRIVATE,
                         Constant.COURSE_ID,
-                        course.getCourse().getId()
+                        course.getCourse().getCourseID()
                 );
 
                 Intent detailIntent = new Intent(getContext(), CourseDetailActivity.class);
-                detailIntent.putExtra(Constant.COURSE_ID, course.getCourse().getId());
+                detailIntent.putExtra(Constant.COURSE_ID, course.getCourse().getCourseID());
                 getContext().startActivity(detailIntent);
             }
         });

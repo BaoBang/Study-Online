@@ -2,20 +2,17 @@ package com.example.baobang.gameduangua.model;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.io.Serializable;
-
 /*
  * Created by baobang on 4/4/18.
  */
 
-public class UserCourse implements Serializable{
+public class UserCourseNew {
     @SerializedName("status")
     private Integer status;
     @SerializedName("_id")
     private String _id;
     @SerializedName("courseId")
     private NewCourse course;
-
 
     public Integer getStatus() {
         return status;
