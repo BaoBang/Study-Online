@@ -3,16 +3,20 @@ package com.example.baobang.gameduangua.data;
 import com.example.baobang.gameduangua.model.AddCourseObj;
 import com.example.baobang.gameduangua.model.AddCourseResponse;
 import com.example.baobang.gameduangua.model.CategoryResponse;
+import com.example.baobang.gameduangua.model.DelGalleryResponse;
 import com.example.baobang.gameduangua.model.GalleryResponse;
 import com.example.baobang.gameduangua.model.LessonObjResponse;
 import com.example.baobang.gameduangua.model.ListCourseResponse;
 import com.example.baobang.gameduangua.model.ListUserResponse;
+import com.example.baobang.gameduangua.model.NewGallery;
 import com.example.baobang.gameduangua.model.UserRequest;
 import com.example.baobang.gameduangua.model.UserResponse;
 import com.example.baobang.gameduangua.model.UserUpdateReQuest;
+import com.example.baobang.gameduangua.model.stt_result;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
@@ -48,7 +52,14 @@ public interface SOService {
     @GET("gallery")
     Call<GalleryResponse> getAllGallery();
 
-//    @GET("/course/active/{courseID}")
+    @DELETE("gallery/{galleryId}")
+    Call<stt_result> deleteGallery(@Path("galleryId") String galleryId);
+
+    @POST("gallery")
+    Call<DelGalleryResponse> addGallery(@Body NewGallery gallery);
+
+    @PUT("gallery/{galleryId}")
+    Call<DelGalleryResponse> updateGallery(@Body NewGallery gallery, @Path("galleryId") String galleryId);
 
     @POST("course/{courseId}")
     Call<AddCourseResponse> registerCourseForUser(@Body AddCourseObj userEmail, @Path("courseId") String courseId);

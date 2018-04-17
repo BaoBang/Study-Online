@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -18,6 +19,7 @@ import com.example.baobang.gameduangua.R;
 import com.example.baobang.gameduangua.fragment.ListCourseFragment;
 import com.example.baobang.gameduangua.fragment.MyCourseFragment;
 import com.example.baobang.gameduangua.gallery.GalleryActivity;
+import com.example.baobang.gameduangua.helper.BottomNavigationViewBehavior;
 import com.example.baobang.gameduangua.login.view.LoginActivity;
 import com.example.baobang.gameduangua.profile.ProfileActivity;
 
@@ -51,8 +53,8 @@ public class MainActivity extends AppCompatActivity {
     private void addControls(Bundle savedInstanceState) {
         navigation = findViewById(R.id.navigation);
         // attaching bottom sheet behaviour - hide / show on scroll
-//        CoordinatorLayout.LayoutParams layoutParams = (CoordinatorLayout.LayoutParams) navigation.getLayoutParams();
-//        layoutParams.setBehavior(new BottomNavigationBehavior());
+        CoordinatorLayout.LayoutParams layoutParams = (CoordinatorLayout.LayoutParams) navigation.getLayoutParams();
+        layoutParams.setBehavior(new BottomNavigationViewBehavior());
 
         MenuItem selectedItem;
         if (savedInstanceState != null) {

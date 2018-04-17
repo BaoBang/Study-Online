@@ -31,6 +31,7 @@ import com.example.baobang.gameduangua.gallery.GalleryActivity;
 import com.example.baobang.gameduangua.login.view.LoginActivity;
 import com.example.baobang.gameduangua.model.AddCourseObj;
 import com.example.baobang.gameduangua.model.AddCourseResponse;
+import com.example.baobang.gameduangua.model.ID_Status;
 import com.example.baobang.gameduangua.model.LessonObjResponse;
 import com.example.baobang.gameduangua.model.LessonResponse;
 import com.example.baobang.gameduangua.model.UserCourse;
@@ -108,7 +109,14 @@ import retrofit2.Response;
             @Override
             public void onResponse(Call<UserResponse> call, Response<UserResponse> response) {
                 List<UserCourse> userCourses = response.body().getUser().getCourse();
-               if(checkWhetherCoursePurchaseOrNotToVisibleButton(userCourses, courseId) == 0){
+
+                List<ID_Status> listCourseStatus = new ArrayList<>();
+
+                for (int i = 0; i < userCourses.size(); i++){
+                    listCourseStatus.add(new ID_Status(userCourses.get(i).getCourse().getCourseID(),
+                            userCourses.get(i).getStatus()));
+                }
+               if(checkWhetherCoursePurchaseOrNotToVisibleButton(listCourseStatus, courseId) == 0){
                    // chua dang ky
                    btnPurchase.setOnClickListener(new View.OnClickListener() {
                        @Override
@@ -116,6 +124,8 @@ import retrofit2.Response;
                             showAlertDialog();
                        }
                    });
+               }else{
+                   isPurchased = true;
                }
             }
 
@@ -208,11 +218,11 @@ import retrofit2.Response;
 
     }
 
-    private int checkWhetherCoursePurchaseOrNotToVisibleButton(List<UserCourse> userCourses, String courseID) {
+    private int checkWhetherCoursePurchaseOrNotToVisibleButton(List<ID_Status> listIdStatus, String courseID) {
 
-        for (int i = 0; i < userCourses.size(); i++){
-            if (userCourses.get(i).getCourse().getCourseID().equalsIgnoreCase(courseID)){
-                if (userCourses.get(i).getStatus()!= 0){
+        for (int i = 0; i < listIdStatus.size(); i++){
+            if (listIdStatus.get(i).getCourseID().equalsIgnoreCase(courseID)){
+                if (listIdStatus.get(i).getStatus()!= 0){
                     btnPurchase.setVisibility(View.INVISIBLE);
                 }else{
                     btnPurchase.setText("Waiting for activate");

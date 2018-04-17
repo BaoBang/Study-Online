@@ -6,7 +6,6 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 
     <application
         android:allowBackup="true"
@@ -16,7 +15,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".login.view.LoginActivity">
+            <meta-data android:name="com.google.android.apps.drive.API_KEY"
+                android:value="id=832572562008" />
             <intent-filter>
+                <action android:name="com.google.android.apps.drive.DRIVE_OPEN" />
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />

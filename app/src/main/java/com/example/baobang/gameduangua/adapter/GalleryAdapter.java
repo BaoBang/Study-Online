@@ -1,7 +1,6 @@
 package com.example.baobang.gameduangua.adapter;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,7 +10,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.RequestBuilder;
 import com.example.baobang.gameduangua.R;
 import com.example.baobang.gameduangua.model.Gallery;
 
@@ -28,6 +26,10 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.GalleryH
 
     public GalleryAdapter(Context mContext, List<Gallery> mGalleries) {
         this.mContext = mContext;
+        this.mGalleries = mGalleries;
+    }
+
+    public void setmGalleries(List<Gallery> mGalleries) {
         this.mGalleries = mGalleries;
     }
 
@@ -76,8 +78,17 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.GalleryH
                 @Override
                 public void onClick(View view) {
                     if(listener != null){
-                        listener.onClick(getAdapterPosition());
+                        listener.onClick(getAdapterPosition(), false);
                     }
+                }
+            });
+            cardView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+                    if (listener != null){
+                        listener.onClick(getAdapterPosition(), true);
+                    }
+                    return true;
                 }
             });
         }
@@ -87,6 +98,6 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.GalleryH
         this.listener = callBack;
     }
     public interface OnItemClickListener{
-        void onClick(int pos);
+        void onClick(int pos, boolean isLongClick);
     }
 }

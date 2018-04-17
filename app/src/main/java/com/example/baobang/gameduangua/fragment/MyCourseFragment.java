@@ -63,6 +63,7 @@ public class MyCourseFragment extends Fragment {
         GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 2);
         mRvCourse.setLayoutManager(layoutManager);
         mRvCourse.setAdapter(mCourseListAdapter);
+        mRvCourse.setNestedScrollingEnabled(false);
         mCourseListAdapter.setOnItemClickListener(new UserCourseListAdapter.OnItemClickListener() {
             @Override
             public void onClick(int pos) {
